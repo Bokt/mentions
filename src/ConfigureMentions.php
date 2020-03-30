@@ -70,6 +70,8 @@ class ConfigureMentions
 
     private function configurePostMentions(Configurator $config)
     {
+        $config->BBCodes->addFromRepository('QUOTE');
+
         $config->rendering->parameters['DISCUSSION_URL'] = $this->url->to('forum')->route('discussion', ['id' => '']);
 
         $tagName = 'POSTMENTION';
