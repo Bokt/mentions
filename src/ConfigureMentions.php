@@ -70,7 +70,20 @@ class ConfigureMentions
 
     private function configurePostMentions(Configurator $config)
     {
-        $config->BBCodes->addFromRepository('QUOTE');
+        $config->BBCodes->delete('QUOTE');
+        $config->BBCodes->addCustom(
+            '[quote author={TEXT}]{TEXT}[/quote]',
+            <<<EOM
+			<blockquote>
+				<div>
+                    <cite>
+                        <xsl:value-of select="@author"/>
+                    </cite>
+					<xsl:apply-templates />
+				</div>
+			</blockquote>
+EOM
+        );
 
         $config->rendering->parameters['DISCUSSION_URL'] = $this->url->to('forum')->route('discussion', ['id' => '']);
 
